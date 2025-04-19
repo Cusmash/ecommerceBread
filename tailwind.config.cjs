@@ -1,11 +1,15 @@
-/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     "./index.html",
     "./src/**/*.{ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        cursive: ['"Dancing Script"', 'cursive'],
+        bold: ['"Poppins"', 'sans-serif'],
+      },
+    },
   },
   plugins: [],
 };

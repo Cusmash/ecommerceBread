@@ -4,6 +4,8 @@ import { Categories } from './components/Categories';
 import { Promotion } from './components/Promotion';
 import { Footer } from './components/Footer';
 import { JSX } from 'react';
+import { ProductsSwiper } from './components/ProductSwiper';
+import { PartnersCarousel } from './components/PartnersCarousel';
 
 const App = (): JSX.Element => {
   return (
@@ -11,7 +13,9 @@ const App = (): JSX.Element => {
       <Navbar />
       <Hero />
       <Categories />
+      <ProductsSwiper />
       <Promotion />
+      <PartnersCarousel />
       <Footer />
     </div>
   );

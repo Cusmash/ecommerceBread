@@ -29,11 +29,17 @@ export const Footer = (): JSX.Element => {
           </div>
           <div>
             <h4 className="font-bold">Stay Updated</h4>
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="mt-2 w-full px-2 py-1 rounded text-black"
-            />
+              <div className="mt-2 w-full">
+              <p className="text-sm">Subscribe to our newsletter for the latest news and exclusive offers.</p>
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="mt-2 w-vw px-2 py-1 rounded text-black mr-2"
+              />
+              <button className="bg-black text-white px-4 py-2 rounded hover:bg-gray-200 transition">
+                Subscribe
+              </button>
+            </div>
           </div>
         </div>
         <div className="text-center mt-8">
