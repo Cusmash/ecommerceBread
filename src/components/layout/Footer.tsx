@@ -43,7 +43,7 @@ export const Footer = (): JSX.Element => {
           </div>
         </div>
         <div className="text-center mt-8">
-          © 2025 BreadBazaar. All rights reserved.
+          © 2025 Fidencia Boulangerie. All rights reserved.
         </div>
       </footer>
     );

@@ -1,0 +1,19 @@
+import { Hero } from '../components/Hero';
+import { ProductSwiper } from '../components/ProductSwiper';
+import { Promotion } from '../components/Promotion';
+import { PartnersCarousel } from '../components/PartnersCarousel';
+import { JSX } from 'react';
+
+export const Home = (): JSX.Element => {
+  return (
+    <>
+      <Hero />
+      <section className="py-12 px-6">
+        <h2 className="text-3xl font-bold text-center mb-8">Best Selling Products</h2>
+        <ProductSwiper />
+      </section>
+      <Promotion />
+      <PartnersCarousel />
+    </>
+  );
+};

@@ -11,7 +11,7 @@ const slides: Slide[] = [
   {
     image: '/images/slider1.jpg',
     title: 'Experience the Art of Baking',
-    description: 'At BreadBazaar, we\'re passionate about delivering the freshest, most delicious breads right to your doorstep. Explore our wide selection of artisan loaves, breakfast treats and more',
+    description: 'At Fidencia Boulangerie, we\'re passionate about delivering the freshest, most delicious breads right to your doorstep. Explore our wide selection of artisan loaves, breakfast treats and more',
     buttonText: 'Shop Now',
   },
   {

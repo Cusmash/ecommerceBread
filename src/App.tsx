@@ -1,24 +1,10 @@
-import { Navbar } from './components/Navbar';
-import { Hero } from './components/Hero';
-import { Categories } from './components/Categories';
-import { Promotion } from './components/Promotion';
-import { Footer } from './components/Footer';
-import { JSX } from 'react';
-import { ProductsSwiper } from './components/ProductSwiper';
-import { PartnersCarousel } from './components/PartnersCarousel';
+import { BrowserRouter } from 'react-router-dom';
+import { AppRoutes } from './routes/AppRoutes';
 
-const App = (): JSX.Element => {
+export default function App() {
   return (
-    <div className="pt-16"> {/* pt-16 para compensar el Navbar fixed */}
-      <Navbar />
-      <Hero />
-      <Categories />
-      <ProductsSwiper />
-      <Promotion />
-      <PartnersCarousel />
-      <Footer />
-    </div>
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
   );
-};
-
-export default App;
+}

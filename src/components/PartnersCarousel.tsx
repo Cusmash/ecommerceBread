@@ -24,10 +24,10 @@ export const PartnersCarousel = (): JSX.Element => {
         slidesPerView={4}
         loop={true}
         autoplay={{
-          delay: 1, // 🔥 Delay mínimo para no detenerse
+          delay: 1,
           disableOnInteraction: false,
         }}
-        speed={4000} // 🔥 Velocidad constante para movimiento fluido
+        speed={4000}
         grabCursor={true}
         className="flex items-center"
         breakpoints={{
