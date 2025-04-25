@@ -9,7 +9,7 @@ export const Home = (): JSX.Element => {
     <>
       <Hero />
       <section className="py-12 px-6">
-        <h2 className="text-3xl font-bold text-center mb-8">Best Selling Products</h2>
+        <h2 className="text-3xl font-bold text-center mb-8">On Sale Products</h2>
         <ProductSwiper />
       </section>
       <Promotion />
