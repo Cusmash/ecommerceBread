@@ -1,4 +1,5 @@
 import { JSX, useEffect, useState } from 'react';
+import { Button } from './ui/Button';
 
 interface Slide {
   image: string;
@@ -53,9 +54,9 @@ export const Hero = (): JSX.Element => {
         <p className="mb-6 transition-opacity duration-500">
           {description}
         </p>
-        <button className="bg-white text-black px-4 py-2 rounded hover:bg-gray-200 transition">
-          {buttonText}
-        </button>
+        <Button size="lg" variant="light">
+          Comprar ahora
+        </Button>
       </div>
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex gap-2">
         {slides.map((_, index) => (

@@ -1,4 +1,5 @@
 import { JSX } from "react";
+import { Button } from "./ui/Button";
 
 interface Categories {
     image: string;
@@ -36,12 +37,12 @@ interface Categories {
               className="relative bg-cover bg-center h-64 rounded-lg overflow-hidden shadow-md"
               style={{ backgroundImage: `url(${bread.image})` }}
             >
-              <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+              <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col items-center justify-center">
                 <h3 className="text-white text-2xl font-semibold">{bread.title}</h3>
                 <hr></hr>
-                <button className="bg-white text-black px-4 py-2 rounded hover:bg-gray-200 transition">
-                    {bread.buttonText}
-                </button>
+                <Button variant="light" size="md">
+                  {bread.buttonText}
+                </Button>
               </div>
             </div>
           ))}
