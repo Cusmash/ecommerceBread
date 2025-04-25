@@ -4,7 +4,7 @@ import { Promotion } from '../components/Promotion';
 import { PartnersCarousel } from '../components/PartnersCarousel';
 import { JSX } from 'react';
 
-export const Home = (): JSX.Element => {
+const Home = (): JSX.Element => {
   return (
     <>
       <Hero />
@@ -17,3 +17,5 @@ export const Home = (): JSX.Element => {
     </>
   );
 };
+
+export default Home;

@@ -12,7 +12,7 @@ const allProducts = [
   { id: 6, name: 'Focaccia', image: '/images/bread6.jpg', price: 6.49 },
 ];
 
-export const Shop = (): JSX.Element => {
+const Shop = (): JSX.Element => {
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 6;
 
@@ -40,3 +40,5 @@ export const Shop = (): JSX.Element => {
     </section>
   );
 };
+
+export default Shop;
