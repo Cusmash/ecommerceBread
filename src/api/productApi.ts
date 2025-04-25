@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Product } from '../types/product';
 
-const GRAPHQL_ENDPOINT = 'http://localhost:8081/graphql';
+const GRAPHQL_ENDPOINT = import.meta.env.VITE_API_URL;;
 
 export const fetchProductsPaged = async (
   page: number,
