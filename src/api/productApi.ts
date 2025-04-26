@@ -61,20 +61,22 @@ export const fetchOnSaleProducts = async (
 };
 
 export const fetchFilteredProducts = async (
-  filters: Filters,
+  filters: Filters | null,
   page: number,
   size: number,
   sort: 'ASC' | 'DESC'
 ): Promise<Product[]> => {
+  const hasFilters = filters && Object.keys(filters).length > 0;
+
   const query = `
     query GetFilteredProducts(
-      $filter: ProductFilterInput,
+      ${hasFilters ? '$filter: ProductFilterInput,' : ''}
       $page: Int!,
       $size: Int!,
       $sort: SortDirection!
     ) {
       getFilteredProducts(
-        filter: $filter,
+        ${hasFilters ? 'filter: $filter,' : ''}
         page: $page,
         size: $size,
         sort: $sort
@@ -84,20 +86,25 @@ export const fetchFilteredProducts = async (
           name
           price
           type
+          flavor
           onSale
           discountPercentage
+          imgUrl
         }
         totalElements
       }
     }
   `;
 
-  const variables = {
-    filter: filters || {},
+  const variables: any = {
     page,
     size,
-    sort
+    sort,
+    ...(hasFilters && { filter: filters }),
   };
+
+  console.log('GraphQL query:', query);
+  console.log('GraphQL variables:', variables);
 
   const response = await axios.post(GRAPHQL_ENDPOINT, {
     query,

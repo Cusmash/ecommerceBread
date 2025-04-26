@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import 'swiper/swiper-bundle.css';
 import { Product } from '../types/product';
-import { fetchOnSaleProducts } from '../api/productApi';
+import { fetchFilteredProducts } from '../api/productApi';
 import { JSX } from 'react/jsx-runtime';
 import { ProductCard } from './ui/ProductCard';
 
@@ -11,7 +11,8 @@ export const ProductSwiper = (): JSX.Element => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    fetchOnSaleProducts(0, 6, 'DESC')
+    const filters = { onSale: true };
+    fetchFilteredProducts(filters, 0, 6, 'DESC')
       .then((data) => {
         console.log('Productos con descuento:', data);
         setProducts(data);

@@ -5,7 +5,7 @@ export const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <Navbar />
-      <main className="min-h-[80vh]">{children}</main>
+      <main className="pt-24 min-h-[80vh]">{children}</main>
       <Footer />
     </>
   );
