@@ -10,3 +10,11 @@ export interface Product {
   flavor: string;
   discountPercentage: number;
 }
+
+export type Filters = {
+  type?: string[];   
+  flavor?: string[]; 
+  onSale?: boolean;
+  priceFrom?: number;
+  priceTo?: number; 
+};

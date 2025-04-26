@@ -5,12 +5,13 @@ import 'swiper/swiper-bundle.css';
 import { Product } from '../types/product';
 import { fetchOnSaleProducts } from '../api/productApi';
 import { JSX } from 'react/jsx-runtime';
+import { ProductCard } from './ui/ProductCard';
 
 export const ProductSwiper = (): JSX.Element => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    fetchOnSaleProducts({ onSale: true }, 0, 6, 'DESC')
+    fetchOnSaleProducts(0, 6, 'DESC')
       .then((data) => {
         console.log('Productos con descuento:', data);
         setProducts(data);
@@ -39,39 +40,9 @@ export const ProductSwiper = (): JSX.Element => {
       }}
     >
       {products.map((product) => (
-        <SwiperSlide key={product.id}>
-          <div className="bg-white shadow rounded p-4">
-            <div className="relative">
-              {product.price && (
-                <span className="absolute top-2 left-2 bg-black text-white text-xs px-2 py-1 rounded">
-                  Sale
-                </span>
-              )}
-              <img
-                src={product.imgUrl}
-                alt={product.name}
-                className="w-full h-48 object-cover mb-4"
-              />
-            </div>
-            <h3 className="font-semibold">{product.name}</h3>
-            <p className="text-sm">
-              {product.price ? (
-                <>
-                  <span className="line-through text-gray-500">${product.price.toFixed(2)}</span>{' '}
-                  <span className="text-black font-bold">
-                    ${(product.price -
-                      (product.price * product.discountPercentage) / 100
-                      ).toFixed(2)}</span>
-                </>
-              ) : (
-                <span className="text-black font-bold">${product.price.toFixed(2)}</span>
-              )}
-            </p>
-            <button className="text-sm text-blue-600 underline mt-2">
-              Add to cart
-            </button>
-          </div>
-        </SwiperSlide>
+      <SwiperSlide key={product.id}>
+        <ProductCard product={product} />
+      </SwiperSlide>
       ))}
     </Swiper>
   );

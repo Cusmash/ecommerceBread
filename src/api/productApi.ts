@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { Product } from '../types/product';
+import { Filters, Product } from '../types/product';
 
-const GRAPHQL_ENDPOINT = import.meta.env.VITE_API_URL;;
+const GRAPHQL_ENDPOINT = import.meta.env.VITE_API_URL;
 
 export const fetchProductsPaged = async (
   page: number,
@@ -14,7 +14,6 @@ export const fetchProductsPaged = async (
         content {
           id
           name
-          price
           description
           price
           quantity
@@ -25,20 +24,18 @@ export const fetchProductsPaged = async (
     }
   `;
 
-  console.log('Query enviada a GraphQL:\n', query);
   const response = await axios.post(GRAPHQL_ENDPOINT, { query });
   return response.data.data.getAllProducts.content;
 };
 
 export const fetchOnSaleProducts = async (
-  filter: { onSale: boolean },
   page: number,
   size: number,
   sort: 'ASC' | 'DESC'
 ): Promise<Product[]> => {
-  const query = ` #probando nueva sintaxis de queries
-    query GetFilteredProducts($filter: ProductFilterInput!, $page: Int!, $size: Int!, $sort: SortDirection!) { #<-- primero se definen las variables
-      getFilteredProducts(filter: $filter, page: $page, size: $size, sort: $sort) { #<-- despues se usan las variables
+  const query = `
+    query GetFilteredProducts($filter: ProductFilterInput!, $page: Int!, $size: Int!, $sort: SortDirection!) {
+      getFilteredProducts(filter: $filter, page: $page, size: $size, sort: $sort) {
         content {
           id
           name
@@ -52,29 +49,19 @@ export const fetchOnSaleProducts = async (
     }
   `;
 
-  const variables = { //<-- se mandan los valores relaes en el objeto variables
-    filter,
+  const variables = {
+    filter: { onSale: true },
     page,
     size,
     sort
   };
 
-  const response = await axios.post(GRAPHQL_ENDPOINT, {
-    query,
-    variables
-  });
-
+  const response = await axios.post(GRAPHQL_ENDPOINT, { query, variables });
   return response.data.data.getFilteredProducts.content;
 };
 
 export const fetchFilteredProducts = async (
-  filter: Partial<{
-    type: string;
-    onSale: boolean;
-    priceFrom: number;
-    priceTo: number;
-    flavor: string;
-  }>,
+  filters: Filters,
   page: number,
   size: number,
   sort: 'ASC' | 'DESC'
@@ -86,7 +73,12 @@ export const fetchFilteredProducts = async (
       $size: Int!,
       $sort: SortDirection!
     ) {
-      getFilteredProducts(filter: $filter, page: $page, size: $size, sort: $sort) {
+      getFilteredProducts(
+        filter: $filter,
+        page: $page,
+        size: $size,
+        sort: $sort
+      ) {
         content {
           id
           name
@@ -101,7 +93,7 @@ export const fetchFilteredProducts = async (
   `;
 
   const variables = {
-    filter,
+    filter: filters || {},
     page,
     size,
     sort
@@ -109,7 +101,7 @@ export const fetchFilteredProducts = async (
 
   const response = await axios.post(GRAPHQL_ENDPOINT, {
     query,
-    variables
+    variables,
   });
 
   return response.data.data.getFilteredProducts.content;
