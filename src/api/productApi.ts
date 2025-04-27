@@ -61,22 +61,20 @@ export const fetchOnSaleProducts = async (
 };
 
 export const fetchFilteredProducts = async (
-  filters: Filters | null,
+  filters: Filters,
   page: number,
   size: number,
   sort: 'ASC' | 'DESC'
 ): Promise<Product[]> => {
-  const hasFilters = filters && Object.keys(filters).length > 0;
-
   const query = `
     query GetFilteredProducts(
-      ${hasFilters ? '$filter: ProductFilterInput,' : ''}
+      $filter: ProductFilterInput,
       $page: Int!,
       $size: Int!,
       $sort: SortDirection!
     ) {
       getFilteredProducts(
-        ${hasFilters ? 'filter: $filter,' : ''}
+        filter: $filter,
         page: $page,
         size: $size,
         sort: $sort
@@ -96,15 +94,19 @@ export const fetchFilteredProducts = async (
     }
   `;
 
-  const variables: any = {
+  const cleanedFilters: any = {};
+  if (filters.type && filters.type.length > 0) cleanedFilters.types = filters.type;
+  if (filters.flavor && filters.flavor.length > 0) cleanedFilters.flavors = filters.flavor;
+  if (filters.onSale !== undefined) cleanedFilters.onSale = filters.onSale;
+  if (filters.priceFrom !== undefined) cleanedFilters.priceFrom = filters.priceFrom;
+  if (filters.priceTo !== undefined) cleanedFilters.priceTo = filters.priceTo;
+
+  const variables = {
+    filter: cleanedFilters,
     page,
     size,
     sort,
-    ...(hasFilters && { filter: filters }),
   };
-
-  console.log('GraphQL query:', query);
-  console.log('GraphQL variables:', variables);
 
   const response = await axios.post(GRAPHQL_ENDPOINT, {
     query,

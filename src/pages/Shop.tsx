@@ -3,29 +3,51 @@ import { SidebarFilters } from '../components/SidebarFilters';
 import { fetchFilteredProducts } from '../api/productApi';
 import { ProductCard } from '../components/ui/ProductCard';
 import { Product, Filters } from '../types/product';
+import { useLoading } from '../contexts/LoadingContext'; 
 
 const Shop = (): JSX.Element => {
   const [products, setProducts] = useState<Product[]>([]);
   const [filters, setFilters] = useState<Filters>({});
+  const [sort, setSort] = useState<'ASC' | 'DESC'>('ASC');
+  const { startLoading, stopLoading } = useLoading();
 
   useEffect(() => {
-    console.log('Fetching products with filters:', filters);
-    fetchFilteredProducts(filters, 0, 10, 'ASC')
+    console.log('Fetching products with filters:', filters, 'sort:', sort);
+    startLoading();
+    fetchFilteredProducts(filters, 0, 10, sort)
       .then((data) => {
         console.log('Filtered products:', data);
-          setProducts(data)
-        }
-      )
-      .catch((err) => console.error('Error fetching products:', err));
-  }, [filters]);
+        setProducts(data);
+      }
+    )
+      .catch((err) => console.error('Error fetching products:', err))
+      .finally(() => stopLoading());
+  }, [filters, sort]);
 
   return (
     <div className="flex flex-col md:flex-row">
-      <SidebarFilters onFilterChange={setFilters} />
-      <main className="flex-1 p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
+      <SidebarFilters 
+        onFilterChange={setFilters} 
+        onClearFilters={() => setFilters({})}
+      />
+      <main className="flex-1 p-6">
+        
+        <div className="flex justify-end mb-6">
+          <select
+            value={sort}
+            onChange={(e) => setSort(e.target.value as 'ASC' | 'DESC')}
+            className="border p-2 rounded"
+          >
+            <option value="ASC">Precio: Menor a Mayor</option>
+            <option value="DESC">Precio: Mayor a Menor</option>
+          </select>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {products.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
       </main>
     </div>
   );
