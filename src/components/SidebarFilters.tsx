@@ -20,7 +20,6 @@ export const SidebarFilters = ({ onFilterChange, onClearFilters }: SidebarFilter
   const [selectedPriceRanges, setSelectedPriceRanges] = useState<string[]>([]);
 
   const applyFilters = () => {
-    console.log('filters', filters);
     let priceFrom: number | undefined = undefined;
     let priceTo: number | undefined = undefined;
     if(filters.onSale === false) {

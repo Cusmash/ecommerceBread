@@ -14,12 +14,10 @@ export const ProductSwiper = (): JSX.Element => {
     const filters = { onSale: true };
     fetchFilteredProducts(filters, 0, 6, 'DESC')
       .then((data) => {
-        console.log('Productos con descuento:', data);
         setProducts(data);
         setLoading(false);
       })
       .catch((err) => {
-        console.error('Error loading products:', err.response?.data || err.message);
         setLoading(false);
       });
   }, []);

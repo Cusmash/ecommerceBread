@@ -12,11 +12,9 @@ const Shop = (): JSX.Element => {
   const { startLoading, stopLoading } = useLoading();
 
   useEffect(() => {
-    console.log('Fetching products with filters:', filters, 'sort:', sort);
     startLoading();
     fetchFilteredProducts(filters, 0, 10, sort)
       .then((data) => {
-        console.log('Filtered products:', data);
         setProducts(data);
       }
     )
