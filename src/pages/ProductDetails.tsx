@@ -1,4 +1,4 @@
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Product } from '../types/product';
 import { fetchProductById } from '../api/productApi';
@@ -12,6 +12,9 @@ const ProductDetails = () => {
   const [similarProducts, setSimilarProducts] = useState<Product[]>([]);
   const [quantity, setQuantity] = useState(1);
   const { startLoading, stopLoading } = useLoading();
+  const location = useLocation();
+
+  const from = (location.state as { from?: string })?.from || '/shop';
 
   useEffect(() => {
     const loadProduct = async () => {
@@ -52,9 +55,14 @@ const ProductDetails = () => {
 
   return (
     <section className="py-12">
-      <Link to="/shop" className="text-sm text-primary hover:underline mb-6 inline-block">
-        ← Volver a la tienda
-      </Link>
+      <div className="flex items-center gap-2 mb-6">
+        <Link to={from} className="text-sm text-primary hover:underline">
+          ← Volver
+        </Link>
+        <span className="text-gray-400">|</span>
+        <p className="text-sm font-semibold">{product.name}</p>
+      </div>
+
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
         <div className="w-full">

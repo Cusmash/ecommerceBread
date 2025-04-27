@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Product } from '../../types/product';
 import { Button } from '../ui/Button';
 
@@ -15,7 +15,11 @@ export const ProductCard = ({ product }: { product: Product }) => {
 
   return (
     <div className="bg-white shadow rounded p-4 hover:shadow-lg transition">
-      <Link to={`/product/${product.id}`} className="block">
+      <Link 
+        to={`/product/${product.id}`} 
+        state={{ from: location.pathname }}
+        className="block"
+      >
         <div className="relative">
           {product.onSale && (
             <span className="absolute top-2 left-2 bg-black text-white text-xs px-2 py-1 rounded">
