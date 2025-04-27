@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Filters } from '../types/product';
 import { CheckboxGroup } from './ui/CheckboxGroup';
 import { PriceRangeCheckboxGroup } from './ui/PriceRangeCheckboxGroup';
+import { Button } from './ui/Button';
 
 type SidebarFiltersProps = {
   onFilterChange: (filters: Filters) => void;
@@ -88,19 +89,9 @@ export const SidebarFilters = ({ onFilterChange, onClearFilters }: SidebarFilter
         </label>
       </div>
 
-      <button
-        onClick={applyFilters}
-        className="bg-black text-white w-full py-2 rounded hover:bg-gray-800 transition mb-2"
-      >
+      <Button variant="bread" size="md" className="mx-auto max-w-[200px] mt-4">
         Aplicar filtros
-      </button>
-{/* 
-      <button
-        onClick={onClearFilters}
-        className="bg-gray-500 text-white w-full py-2 rounded hover:bg-gray-600 transition"
-      >
-        Limpiar filtros
-      </button> */}
+      </Button>
     </aside>
   );
 };

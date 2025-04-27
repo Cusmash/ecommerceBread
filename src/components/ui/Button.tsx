@@ -2,8 +2,8 @@ import clsx from 'clsx';
 
 type ButtonProps = {
   children: React.ReactNode;
-  onClick?: (e?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-  variant?: 'primary' | 'outline' | 'light';
+  onClick?: (e?: React.MouseEvent<HTMLButtonElement>) => void;
+  variant?: 'primary' | 'outline' | 'light' | 'bread';
   size?: 'sm' | 'md' | 'lg';
   fullWidth?: boolean;
   className?: string;
@@ -24,7 +24,8 @@ export const Button = ({
   const variantClasses = {
     primary: 'bg-black text-white hover:bg-gray-900',
     outline: 'border border-black text-black hover:bg-black hover:text-white',
-    light: 'bg-white text-black hover:bg-gray-100 hover:opacity-70'
+    light: 'bg-white text-black hover:bg-gray-100 hover:opacity-70',
+    bread: 'bg-[#F7C59F] text-[#5C3A00] hover:bg-[#FFD8A8]',
   };
 
   const sizeClasses = {
@@ -41,7 +42,7 @@ export const Button = ({
         baseClasses,
         variantClasses[variant],
         sizeClasses[size],
-        fullWidth && 'w-full',
+        fullWidth ? 'w-full' : '',
         className
       )}
     >

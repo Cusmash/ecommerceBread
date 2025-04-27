@@ -2,20 +2,27 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Product } from '../types/product';
 import { fetchProductById } from '../api/productApi';
+import { useLoading } from '../contexts/LoadingContext'; 
 
 const ProductDetails = () => {
   const { id } = useParams<{ id: string }>();
   const [product, setProduct] = useState<Product | null>(null);
+  const { startLoading, stopLoading } = useLoading();
+  
 
   useEffect(() => {
+    startLoading();
     if (id) {
       fetchProductById(id)
         .then((data) => setProduct(data))
-        .catch((err) => console.error('Error loading product:', err));
+        .catch((err) => console.error('Error loading product:', err))
+        .finally(() => stopLoading());
     }
   }, [id]);
 
-  if (!product) return <p className="text-center mt-10">Cargando producto...</p>;
+  if(!product){
+    return null;
+  }
 
   const discountedPrice = (
     product.price - (product.price * (product.discountPercentage || 0)) / 100

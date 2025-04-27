@@ -42,7 +42,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
       </Link>
 
       <Button
-        variant="outline"
+        variant="bread"
         size="sm"
         fullWidth
         onClick={handleAddToCart}
