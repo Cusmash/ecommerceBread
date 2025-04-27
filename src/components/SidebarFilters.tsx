@@ -89,7 +89,7 @@ export const SidebarFilters = ({ onFilterChange, onClearFilters }: SidebarFilter
         </label>
       </div>
 
-      <Button variant="bread" size="md" className="mx-auto max-w-[200px] mt-4">
+      <Button variant="primary" size="md" className="mx-auto max-w-[200px] mt-4">
         Aplicar filtros
       </Button>
     </aside>

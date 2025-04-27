@@ -22,7 +22,7 @@ export const Button = ({
   const baseClasses = 'rounded font-medium transition duration-200 ease-in-out';
 
   const variantClasses = {
-    primary: 'bg-black text-white hover:bg-gray-900',
+    primary: 'bg-gray-900 text-gray-200 hover:bg-gray-900',
     outline: 'border border-black text-black hover:bg-black hover:text-white',
     light: 'bg-white text-black hover:bg-gray-100 hover:opacity-70',
     bread: 'bg-[#F7C59F] text-[#5C3A00] hover:bg-[#FFD8A8]',
