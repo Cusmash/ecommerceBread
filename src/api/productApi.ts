@@ -3,30 +3,28 @@ import { Filters, Product } from '../types/product';
 
 const GRAPHQL_ENDPOINT = import.meta.env.VITE_API_URL;
 
-export const fetchProductsPaged = async (
-  page: number,
-  size: number,
-  sort: 'ASC' | 'DESC'
-): Promise<Product[]> => {
+export const fetchProductById = async (id: string): Promise<Product> => {
   const query = `
     query {
-      getAllProducts(page: ${page}, size: ${size}, sort: ${sort}) {
-        content {
-          id
-          name
-          description
-          price
-          quantity
-          imgUrl
-          type
-        }
+      getProductById(id: "${id}") {
+        id
+        name
+        price
+        description
+        imgUrl
+        type
+        flavor
+        onSale
+        discountPercentage
+        quantity
       }
     }
   `;
 
   const response = await axios.post(GRAPHQL_ENDPOINT, { query });
-  return response.data.data.getAllProducts.content;
+  return response.data.data.getProductById;
 };
+
 
 export const fetchOnSaleProducts = async (
   page: number,
