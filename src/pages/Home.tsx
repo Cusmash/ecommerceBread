@@ -1,9 +1,9 @@
-import { Hero } from '../components/Hero';
-import { ProductSwiper } from '../components/ProductSwiper';
-import { Promotion } from '../components/Promotion';
+import { Hero } from '../components/categories/Hero';
+import { ProductSwiper } from '../components/products/ProductSwiper';
+import { Promotion } from '../components/categories/Promotion';
 import { PartnersCarousel } from '../components/PartnersCarousel';
 import { JSX } from 'react';
-import { Categories } from '../components/Categories';
+import { Categories } from '../components/categories/Categories';
 
 const Home = (): JSX.Element => {
   return (

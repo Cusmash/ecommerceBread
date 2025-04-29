@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { Filters } from '../types/product';
-import { CheckboxGroup } from './ui/CheckboxGroup';
-import { PriceRangeCheckboxGroup } from './ui/PriceRangeCheckboxGroup';
-import { Checkbox } from './ui/Checkbox';
+import { Filters } from '../../types/product';
+import { CheckboxGroup } from '../ui/CheckboxGroup';
+import { PriceRangeCheckboxGroup } from '../ui/PriceRangeCheckboxGroup';
+import { Checkbox } from '../ui/Checkbox';
 
 type SidebarFiltersProps = {
   onFilterChange: (filters: Filters) => void;

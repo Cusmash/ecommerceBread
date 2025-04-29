@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import 'swiper/swiper-bundle.css';
-import { Product } from '../types/product';
-import { fetchFilteredProducts } from '../api/productApi';
+import { Product } from '../../types/product';
+import { fetchFilteredProducts } from '../../api/product/productApi';
 import { JSX } from 'react/jsx-runtime';
-import { ProductCard } from './ui/ProductCard';
+import { ProductCard } from './ProductCard';
 
 export const ProductSwiper = (): JSX.Element => {
   const [products, setProducts] = useState<Product[]>([]);

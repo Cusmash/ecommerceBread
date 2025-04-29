@@ -1,7 +1,7 @@
 import { useState, useEffect, JSX } from 'react';
-import { SidebarFilters } from '../components/SidebarFilters';
-import { fetchFilteredProducts } from '../api/productApi';
-import { ProductCard } from '../components/ui/ProductCard';
+import { SidebarFilters } from '../components/products/SidebarFilters';
+import { fetchFilteredProducts } from '../api/product/productApi';
+import { ProductCard } from '../components/products/ProductCard';
 import { Product, Filters } from '../types/product';
 import { useLoading } from '../contexts/LoadingContext'; 
 import { useNavigate, useLocation } from 'react-router-dom';

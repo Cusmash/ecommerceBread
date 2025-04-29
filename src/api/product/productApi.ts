@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Filters, Product } from '../types/product';
+import { Filters, Product } from '../../types/product';
 
 const GRAPHQL_ENDPOINT = import.meta.env.VITE_API_URL;
 

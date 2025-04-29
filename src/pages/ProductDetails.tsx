@@ -1,10 +1,10 @@
 import { useParams, Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Product } from '../types/product';
-import { fetchProductById, fetchProductsByType } from '../api/productApi';
+import { fetchProductById, fetchProductsByType } from '../api/product/productApi';
 import { useLoading } from '../contexts/LoadingContext';
 import { Button } from '../components/ui/Button';
-import { ProductCard } from '../components/ui/ProductCard';
+import { ProductCard } from '../components/products/ProductCard';
 
 const ProductDetails = () => {
   const { id } = useParams<{ id: string }>();
