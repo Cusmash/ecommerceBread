@@ -22,7 +22,9 @@ export const Navbar = (): JSX.Element => {
           Fidencia Boulangerie
         </Link>
         <ul className="flex gap-6">
-          <li className="hover:text-yellow-300 cursor-pointer">Nosotros</li>
+          <Link to="/about" className="hover:text-yellow-300">
+            Nosotros
+          </Link>
           <li className="hover:text-yellow-300 cursor-pointer">Sucursales</li>
           <li className="hover:text-yellow-300 cursor-pointer">Promociones</li>
           <li className="hover:text-yellow-300 cursor-pointer">Lo Nuevo</li>
