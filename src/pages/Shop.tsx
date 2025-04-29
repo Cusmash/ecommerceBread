@@ -4,16 +4,24 @@ import { fetchFilteredProducts } from '../api/productApi';
 import { ProductCard } from '../components/ui/ProductCard';
 import { Product, Filters } from '../types/product';
 import { useLoading } from '../contexts/LoadingContext'; 
+import { useLocation } from 'react-router-dom';
 
 const Shop = (): JSX.Element => {
+  const location = useLocation();
+  const initialType = (location.state as { type?: string })?.type;
   const [products, setProducts] = useState<Product[]>([]);
-  const [filters, setFilters] = useState<Filters>({});
+  const [filters, setFilters] = useState<Filters>(() =>
+    initialType ? { type: [initialType] } : {}
+  );
   const [sort, setSort] = useState<'ASC' | 'DESC'>('ASC');
   const { startLoading, stopLoading } = useLoading();
 
+
+  
   useEffect(() => {
+    console.log('Filters:', filters);
     startLoading();
-    fetchFilteredProducts(filters, 0, 10, sort)
+    fetchFilteredProducts(filters, 0, 12, sort)
       .then((data) => {
         setProducts(data);
       }
@@ -27,6 +35,7 @@ const Shop = (): JSX.Element => {
       <SidebarFilters 
         onFilterChange={setFilters} 
         onClearFilters={() => setFilters({})}
+        filters={filters}
       />
       <main className="flex-1 p-6">
         

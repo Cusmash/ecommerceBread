@@ -32,7 +32,7 @@ export const fetchOnSaleProducts = async (
   sort: 'ASC' | 'DESC'
 ): Promise<Product[]> => {
   const query = `
-    query GetFilteredProducts($filter: ProductFilterInput!, $page: Int!, $size: Int!, $sort: SortDirection!) {
+    query filterProducts($type: ProductFilterInput!, $page: Int!, $size: Int!, $sort: SortDirection!) {
       getFilteredProducts(filter: $filter, page: $page, size: $size, sort: $sort) {
         content {
           id
@@ -112,4 +112,25 @@ export const fetchFilteredProducts = async (
   });
 
   return response.data.data.getFilteredProducts.content;
+};
+
+export const fetchProductsByType = async (type: string, size: number): Promise<Product[]> => {
+  const query = `
+    query {
+      filterProducts(type: "${type}", page: 0, size: ${size}) {
+        id
+        name
+        description
+        price
+        quantity
+        imgUrl
+        type
+      }
+    }
+  `;
+
+  console.log('query', query);
+  const response = await axios.post(GRAPHQL_ENDPOINT, { query });
+  console.log('response', response.data.data.filterProducts);
+  return response.data.data.filterProducts;
 };

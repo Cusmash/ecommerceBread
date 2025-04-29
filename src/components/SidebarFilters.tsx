@@ -1,12 +1,13 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Filters } from '../types/product';
 import { CheckboxGroup } from './ui/CheckboxGroup';
 import { PriceRangeCheckboxGroup } from './ui/PriceRangeCheckboxGroup';
-import { Button } from './ui/Button';
+import { Checkbox } from './ui/Checkbox';
 
 type SidebarFiltersProps = {
   onFilterChange: (filters: Filters) => void;
   onClearFilters: () => void;
+  filters: Filters;
 };
 
 const priceRanges = [
@@ -16,20 +17,15 @@ const priceRanges = [
   { label: '> 100', from: 100, to: null },
 ];
 
-export const SidebarFilters = ({ onFilterChange, onClearFilters }: SidebarFiltersProps) => {
-  const [filters, setFilters] = useState<Filters>({});
+export const SidebarFilters = ({ onFilterChange, onClearFilters, filters }: SidebarFiltersProps) => {
   const [selectedPriceRanges, setSelectedPriceRanges] = useState<string[]>([]);
 
   const applyFilters = () => {
     let priceFrom: number | undefined = undefined;
     let priceTo: number | undefined = undefined;
-    if(filters.onSale === false) {
-      
-    }
 
     if (selectedPriceRanges.length > 0) {
       const selectedRanges = priceRanges.filter((r) => selectedPriceRanges.includes(r.label));
-
       priceFrom = Math.min(...selectedRanges.map((r) => r.from));
       const validTos = selectedRanges.map((r) => r.to).filter((to) => to !== null) as number[];
       priceTo = validTos.length > 0 ? Math.max(...validTos) : undefined;
@@ -42,6 +38,12 @@ export const SidebarFilters = ({ onFilterChange, onClearFilters }: SidebarFilter
     });
   };
 
+  useEffect(() => {
+    if(selectedPriceRanges.length !== 0) {
+    applyFilters();
+    }
+  }, [selectedPriceRanges])
+
   return (
     <aside className="w-full md:w-1/4 p-4 border-r">
       <h3 className="text-xl font-bold mb-4">Filtros</h3>
@@ -49,14 +51,14 @@ export const SidebarFilters = ({ onFilterChange, onClearFilters }: SidebarFilter
       <CheckboxGroup
         options={['GLUTEN', 'GLUTEN_FREE', 'VEGAN', 'KETO']}
         selectedOptions={filters.type || []}
-        onChange={(selected) => setFilters((prev) => ({ ...prev, type: selected }))}
+        onChange={(selected) => onFilterChange({ ...filters, type: selected })}
         label="Tipo de Pan"
       />
 
       <CheckboxGroup
         options={['CHOCOLATE', 'CANELA', 'VAINILLA', 'FRESA', 'PLATANO', 'NUEZ', 'MANTEQUILLA']}
         selectedOptions={filters.flavor || []}
-        onChange={(selected) => setFilters((prev) => ({ ...prev, flavor: selected }))}
+        onChange={(selected) => onFilterChange({ ...filters, flavor: selected })}
         label="Sabor"
       />
 
@@ -67,33 +69,20 @@ export const SidebarFilters = ({ onFilterChange, onClearFilters }: SidebarFilter
         label="Precio"
       />
 
-      <div className="mb-4">
-        <label className="inline-flex items-center">
-          <input
-            type="checkbox"
-            name="onSale"
-            checked={filters.onSale || false}
-            onChange={(e) => 
-              setFilters((prev) => {
-                const { onSale, ...rest } = prev;
-                if (e.target.checked) {
-                  return { ...rest, onSale: true };
-                } else {
-                  return rest;
-                }
-              })
-            }
-            className="mr-2"
-          />
-          En oferta
-        </label>
-      </div>
+      <Checkbox
+        label="En oferta"
+        checked={filters.onSale || false}
+        onChange={(checked) => {
+          if (checked) {
+            onFilterChange({ ...filters, onSale: true });
+          } else {
+            const { onSale, ...rest } = filters;
+            onFilterChange(rest);
+          }
+        }}
+        className="mb-4"
+      />
 
-      <Button
-        onClick={applyFilters}
-       variant="primary" size="md" className="mx-auto max-w-[200px] mt-4">
-        Aplicar filtros
-      </Button>
     </aside>
   );
 };

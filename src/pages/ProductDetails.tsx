@@ -1,7 +1,7 @@
 import { useParams, Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Product } from '../types/product';
-import { fetchProductById } from '../api/productApi';
+import { fetchProductById, fetchProductsByType } from '../api/productApi';
 import { useLoading } from '../contexts/LoadingContext';
 import { Button } from '../components/ui/Button';
 import { ProductCard } from '../components/ui/ProductCard';
@@ -23,10 +23,19 @@ const ProductDetails = () => {
         try {
           const fetchedProduct = await fetchProductById(id);
           setProduct(fetchedProduct);
-          // if (fetchedProduct?.type) {
-          //   const similar = await fetchProductsByType(fetchedProduct.type);
-          //   setSimilarProducts(similar.filter(p => p.id !== fetchedProduct.id).slice(0, 3));
-          // }
+
+          console.log('type', fetchedProduct?.type);
+          if (fetchedProduct?.type) {
+            const similar = await fetchProductsByType(fetchedProduct.type, 6);
+            const filtered = similar.filter(p => p.id !== fetchedProduct.id);
+
+            const shuffled = filtered.slice().sort(() => 0.5 - Math.random());
+
+            const randomThree = shuffled.slice(0, 3);
+
+            setSimilarProducts(randomThree);
+          }
+
         } catch (error) {
           console.error('Error loading product:', error);
         } finally {
@@ -103,6 +112,7 @@ const ProductDetails = () => {
             </Button>
           </div>
 
+          <p className="text-gray-700">Stock Disponible {product.quantity}</p>
           <p className="text-gray-700">{product.description}</p>
         </div>
       </div>

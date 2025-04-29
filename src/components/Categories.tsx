@@ -1,31 +1,42 @@
 import { JSX } from "react";
 import { Button } from "./ui/Button";
+import { useNavigate } from 'react-router-dom';
 
 interface Categories {
     image: string;
     title: string;
     buttonText: string;
+    type: string;
   }
 
   const categories: Categories[] = [
     {
-      image: '/images/baked-goods.jpg',
-      title: 'Baked goods',
+      image: '/images/vegan.jpg',
+      title: 'Vegan',
       buttonText: 'Shop Now',
+      type: 'VEGAN'
     },
     {
-      image: '/images/bread.jpg',
-      title: 'Bread',
-      buttonText: 'Shop Now'
+      image: '/images/gluten.jpg',
+      title: 'Viennoiserie',
+      buttonText: 'Shop Now',
+      type: 'GLUTEN'
     },
     {
-      image: '/images/pastries.jpg',
-      title: 'Pastries',
-      buttonText: 'Shop Now'
+      image: '/images/keto.jpg',
+      title: 'Keto',
+      buttonText: 'Shop Now',
+      type: 'KETO'
     },
   ];
   
   export const Categories = (): JSX.Element => {
+    const navigate = useNavigate();
+
+    const handleCategoryClick = (type: string) => {
+      navigate('/shop', { state: { type } });
+    };
+
     return (
       <section className="py-10 px-8">
         <h2 className="text-3xl font-bold mb-4 text-center">Explore Our Bread Categories</h2>
@@ -40,7 +51,7 @@ interface Categories {
               <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col items-center justify-center">
                 <h3 className="text-white text-2xl font-semibold">{bread.title}</h3>
                 <hr></hr>
-                <Button variant="light" size="md">
+                <Button onClick={() => handleCategoryClick(bread.type)} variant="light" size="md">
                   {bread.buttonText}
                 </Button>
               </div>
