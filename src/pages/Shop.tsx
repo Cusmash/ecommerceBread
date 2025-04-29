@@ -4,10 +4,11 @@ import { fetchFilteredProducts } from '../api/productApi';
 import { ProductCard } from '../components/ui/ProductCard';
 import { Product, Filters } from '../types/product';
 import { useLoading } from '../contexts/LoadingContext'; 
-import { useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Shop = (): JSX.Element => {
   const location = useLocation();
+  const navigate = useNavigate();
   const initialType = (location.state as { type?: string })?.type;
   const [products, setProducts] = useState<Product[]>([]);
   const [filters, setFilters] = useState<Filters>(() =>
@@ -29,6 +30,12 @@ const Shop = (): JSX.Element => {
       .catch((err) => console.error('Error fetching products:', err))
       .finally(() => stopLoading());
   }, [filters, sort]);
+
+  useEffect(() => {
+    if (initialType) {
+      navigate(location.pathname, { replace: true });
+    }
+  }, [initialType, location.pathname, navigate]);
 
   return (
     <div className="flex flex-col md:flex-row">
