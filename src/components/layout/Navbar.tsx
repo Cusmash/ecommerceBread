@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { JSX } from "react";
 
@@ -6,6 +6,7 @@ export const Navbar = (): JSX.Element => {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,7 +53,12 @@ export const Navbar = (): JSX.Element => {
           </form>
         )}
 
-        <button className="hover:text-yellow-300">Login</button>
+          <button
+            onClick={() => navigate('/sign-in', { state: { from: location.pathname } })}
+            className="hover:text-yellow-300"
+          >
+            Sign In
+          </button>
         <button className="hover:text-yellow-300">🛒</button>
       </div>
       </nav>
