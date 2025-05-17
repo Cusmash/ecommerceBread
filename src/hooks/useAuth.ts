@@ -1,6 +1,7 @@
-import { signInRequest } from '../api/auth/authApi';
+import { signInRequest, forgotPasswordRequest } from '../api/auth/authApi';
 
 export const useAuth = () => {
+  
   const LoginRequest = async (email: string, password: string) => {
     try {
       const token = await signInRequest(email, password);
@@ -11,6 +12,18 @@ export const useAuth = () => {
     }
   };
 
-  return { LoginRequest };
+  const forgotPassword = async (email: string) => {
+    try {
+      const result = await forgotPasswordRequest(email);
+      return { success: result };
+    } catch (err: any) {
+      return { success: false, message: err.message };
+    }
+  };
+
+  return { 
+    LoginRequest,
+    forgotPassword, 
+  };
 };
 
