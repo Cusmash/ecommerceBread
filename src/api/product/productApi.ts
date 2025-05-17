@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Filters, Product } from '../../types/product';
 
-const GRAPHQL_ENDPOINT = import.meta.env.VITE_API_URL;
+const GRAPHQL_ENDPOINT = import.meta.env.VITE_PRODUCT_API_URL;
 
 export const fetchProductById = async (id: string): Promise<Product> => {
   const query = `
