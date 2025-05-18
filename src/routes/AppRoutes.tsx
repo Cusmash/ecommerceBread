@@ -6,6 +6,9 @@ import ProductDetails from '../pages/ProductDetails';
 import { ContainerLayout } from '../components/layout/ContainerLayout';
 import About from '../pages/About';
 import SignIn from '../pages/Auth/SignIn';
+import { PrivateRoute } from './PrivateRoute';
+import { PublicRoute } from './PublicRoute';
+import Profile from '../pages/Profile';
 
 const Home = lazy(() => import('../pages/Home'));
 const Shop = lazy(() => import('../pages/Shop'));
@@ -17,7 +20,8 @@ export const AppRoutes = () => (
       <Route path="/shop" element={<DefaultLayout><ContainerLayout><Shop /></ContainerLayout></DefaultLayout>} />
       <Route path="/product/:id" element={<DefaultLayout><ContainerLayout><ProductDetails /></ContainerLayout></DefaultLayout>} />
       <Route path="/about" element={<DefaultLayout><ContainerLayout><About /></ContainerLayout></DefaultLayout>} />
-      <Route path="/sign-in" element={<DefaultLayout><SignIn /></DefaultLayout>} />
+      <Route path="/sign-in" element={<PublicRoute><DefaultLayout><SignIn /></DefaultLayout></PublicRoute>} />
+      <Route path="/profile/userDetails" element={<PrivateRoute><DefaultLayout><Profile /></DefaultLayout></PrivateRoute>} />
     </Routes>
   </Suspense>
 );

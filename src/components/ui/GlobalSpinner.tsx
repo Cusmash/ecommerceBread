@@ -1,9 +1,10 @@
 import { useLoading } from '../../contexts/LoadingContext';
+import { Spinner } from '../../components/ui/Spinner';
 
 export const GlobalSpinner = () => {
   const { isLoading } = useLoading();
 
-  if (!isLoading) return null;
+  if (!isLoading) return <Spinner />;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-[9999]">
